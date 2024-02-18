@@ -6,7 +6,7 @@ class TareasAPI
 {
     public function API()
     {
-        header('ContentType:application/JSON');
+        header('Content-Type: application/json');
         $method = $_SERVER['REQUEST_METHOD'];
         
         switch($method)
@@ -19,6 +19,7 @@ class TareasAPI
                 break;
             case 'PUT':
                 $this->processUpdate();
+                break;
             case 'DELETE':
                  $this->processDelete();
             default:
@@ -48,7 +49,7 @@ class TareasAPI
                 echo json_encode($response, JSON_PRETTY_PRINT);
             }else{
                 // de lo contrario, manda la lista completa
-                $response = $tareasDB->dameLista();
+                $response = $tareasDB->getList();
                 // muestra la lista en formato json
                 echo json_encode($response, JSON_PRETTY_PRINT);
             }

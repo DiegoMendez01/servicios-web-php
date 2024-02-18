@@ -2,7 +2,7 @@
 
 class Routes
 {
-    protected $urlBase = "http://localhost/ProyectosPHP/servicios-web-php";
+    protected $urlBase = "http://localhost/proyectosphp/servicios-web-php";
     
     public function __construct()
     {
