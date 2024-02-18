@@ -107,7 +107,7 @@ class TareasDB
      */
     public function update($id, $titulo, $descripcion, $prioridad)
     {
-        if($this->verificaExistenciaPorId($id)){
+        if($this->verifyExistById($id)){
             $sql = '
                 UPDATE
                     tareas
@@ -142,7 +142,7 @@ class TareasDB
                 id = ?
         ';
         
-        $stmt = $this->mysqli->prepare();
+        $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $id);
         
         if($stmt->execute()){

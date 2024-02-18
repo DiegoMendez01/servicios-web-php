@@ -10,14 +10,14 @@ $register = json_decode(file_get_contents($url = $routes->getUrlBase().'/server/
 
 if(isset($_POST['titulo']))
 {
-    $url = $routes->getUrlBase().'/servidor/tareas/'.$id;
+    $url = $routes->getUrlBase().'/server/tareas/'.$id;
+    
     $data = array(
         'titulo'      => $_POST['titulo'],
         'descripcion' => $_POST['descripcion'],
         'prioridad'   => $_POST['prioridad']
     );
     $postdata = json_encode($data);
-    
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
@@ -52,7 +52,7 @@ if(isset($_POST['titulo']))
                 <option value="3">3</option>
             </select>
             <br>
-            <button type="submit" form="form1" value="Submit">Guardar</button>
+            <button type="submit" form="form1" value="submit">Guardar</button>
         </form>';
     } else {
         echo "Registro modificado";
