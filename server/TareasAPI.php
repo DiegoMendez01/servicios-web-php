@@ -37,7 +37,7 @@ class TareasAPI
     }
     
     function processList(){
-        //se verifica la accion y se    verifica que actue sobre la tabla tareas
+        //se verifica la accion y se verifica que actue sobre la tabla tareas
         if($_GET['action'] == 'tareas'){
             // aquí se instancia un objeto de la clase tareasdb
             $tareasDB = new TareasDB();
