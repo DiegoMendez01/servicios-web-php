@@ -45,8 +45,12 @@ class TareasAPI
             // se solicita un registro por id
             if(isset($_GET['id'])){
                 $response = $tareasDB->getOneById($_GET['id']);
-                // aquí se muestra la información en formato json un registro por id
-                echo json_encode($response, JSON_PRETTY_PRINT);
+                if($response){
+                    // aquí se muestra la información en formato json un registro por id
+                    echo json_encode($response, JSON_PRETTY_PRINT);
+                }else{
+                    $this->response(400,"error","ID not exist");
+                }
             }else{
                 // de lo contrario, manda la lista completa
                 $response = $tareasDB->getList();
@@ -73,7 +77,7 @@ class TareasAPI
                 $tareasDB->create($obj->titulo, $obj->descripcion, $obj->prioridad );
                 $this->response(200,"success","new record added");
             }else{
-                $this->response(422,"error","The property is not defined");
+                $this->response(400,"error","The property is not defined");
             }
         } else{
             $this->response(400);
@@ -88,13 +92,18 @@ class TareasAPI
                 $objArr = (array)$obj;
                 
                 if(empty($objArr)){
-                    $this->response(422,"error","Nothing to add. Check json");
+                    $this->response(400,"error","Nothing to add. Check json");
                 }else if(isset($obj->titulo)){
                     $tareasDB = new TareasDB();
-                    $tareasDB->update($_GET['id'], $obj->titulo, $obj->descripcion, $obj->prioridad );
-                    $this->response(200,"success","Record updated");
+                    $response = $tareasDB->getOneById($_GET['id']);
+                    if($response){
+                        $tareasDB->update($_GET['id'], $obj->titulo, $obj->descripcion, $obj->prioridad );
+                        $this->response(200);
+                    }else{
+                        $this->response(400);
+                    }
                 }else{
-                    $this->response(422,"error","The property is not defined");
+                    $this->response(400,"error","The property is not defined");
                 }
                 exit;
             }
@@ -106,8 +115,13 @@ class TareasAPI
         if(isset($_GET['action']) AND isset($_GET['id'])){
             if($_GET['action']=='tareas'){
                 $tareasDB = new TareasDB();
-                $tareasDB->delete($_GET['id']);
-                $this->response(204);
+                $response = $tareasDB->getOneById($_GET['id']);
+                if($response){
+                    $tareasDB->delete($_GET['id']);
+                    $this->response(200);
+                }else{
+                    $this->response(400);
+                }
                 exit;
             }
         }
