@@ -31,7 +31,7 @@ class Routes
     
     public function getDeleteMenu($id)
     {
-        return '<a href="'.$this->urlBase.'/client/delete.php?id='.$id.'">Nuevo</a>';
+        return '<a href="'.$this->urlBase.'/client/delete.php?id='.$id.'">Eliminar</a>';
     }
 }
 

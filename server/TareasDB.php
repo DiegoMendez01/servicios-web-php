@@ -37,7 +37,7 @@ class TareasDB
         ';
         
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bindValue(1, $id);
+        $stmt->bind_param('i', $id);
         $stmt->execute();
         
         $result = $stmt->get_result();
